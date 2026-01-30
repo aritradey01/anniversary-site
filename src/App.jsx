@@ -113,7 +113,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen pb-20 bg-[#FFF0F5] font-serif text-gray-800 selection:bg-pink-200 overflow-x-hidden">
-      <audio ref={audioRef} loop src="/aapko_nazron.mp3" />
+      <audio ref={audioRef} loop src="/aapki_nazron.mp3" />
 
       {/* Floating Music Player */}
       <div className="fixed bottom-6 right-6 z-50 group">
