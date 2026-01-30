@@ -15,7 +15,36 @@ const App = () => {
 
   // --- CONFIGURATION ---
   const CORRECT_PASSWORD = "1902"; 
-  const ANNIVERSARY_DATE = new Date(2023, 1, 19, 0, 0, 0); // Feb 19, 2023
+  const ANNIVERSARY_DATE = new Date(2023, 1, 19, 0, 0, 0); 
+
+  // --- CELEBRATION LOGIC (THE MISSING PIECE) ---
+  const triggerCelebration = () => {
+    const end = Date.now() + (4 * 1000); // 4 seconds of confetti
+    const colors = ['#FF69B4', '#FFB6C1', '#FFFFFF'];
+
+    (function frame() {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.7 },
+        colors: colors,
+        zIndex: 9999 // Ensures it shows over the white boxes
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.7 },
+        colors: colors,
+        zIndex: 9999
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    }());
+  };
 
   // --- LIVE COUNTER LOGIC ---
   useEffect(() => {
@@ -58,7 +87,7 @@ const App = () => {
     if (passwordInput === CORRECT_PASSWORD) {
       setIsLocked(false);
       setIsPlaying(true);
-      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
       if (audioRef.current) {
         audioRef.current.volume = 0.5;
         audioRef.current.play().catch(() => setIsPlaying(false));
@@ -168,7 +197,17 @@ const App = () => {
                 <span className="font-bold"> resolve every conflict and debug life </span> with forever?"
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative min-h-[140px]">
-                <button onClick={() => { setHasAgreed(true); triggerCelebration(); }} className="bg-pink-500 text-white px-12 py-4 rounded-full font-bold shadow-lg hover:bg-pink-600 transition-all z-10 w-full sm:w-auto">Yes!</button>
+                <button 
+                  onClick={() => { 
+                    setHasAgreed(true); 
+                    setTimeout(() => {
+                      triggerCelebration(); 
+                    }, 200);
+                  }} 
+                  className="bg-pink-500 text-white px-12 py-4 rounded-full font-bold shadow-lg z-10 w-full sm:w-auto"
+                >
+                  Yes!
+                </button>
                 <button onMouseEnter={moveNoButton} onTouchStart={moveNoButton} style={{ position: 'relative', top: noButtonPos.top, left: noButtonPos.left }}
                   className="bg-gray-100 text-gray-400 px-12 py-4 rounded-full font-bold w-full sm:w-auto transition-all">No</button>
               </div>
