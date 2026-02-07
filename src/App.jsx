@@ -3,21 +3,23 @@ import confetti from 'canvas-confetti';
 
 const App = () => {
   // --- STATE ---
+  const [showSummons, setShowSummons] = useState(true); // "Court Summons" Entry Screen
   const [isLocked, setIsLocked] = useState(true);
   const [passwordInput, setPasswordInput] = useState('');
   const [hasAgreed, setHasAgreed] = useState(false);
   const [noButtonPos, setNoButtonPos] = useState({ top: '0px', left: '0px' });
   const [isPlaying, setIsPlaying] = useState(false);
   const [isScrollOpen, setIsScrollOpen] = useState(false);
+  const [isRoseRevealed, setIsRoseRevealed] = useState(false); // Rose Day State
   const [timeTogether, setTimeTogether] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   const audioRef = useRef(null);
 
   // --- CONFIGURATION ---
   const CORRECT_PASSWORD = "1902"; 
-  const ANNIVERSARY_DATE = new Date(2023, 1, 19, 0, 0, 0); 
+  const ANNIVERSARY_DATE = new Date(2023, 2, 19, 0, 0, 0); // Feb 19, 2023
 
-  // --- CELEBRATION LOGIC (THE MISSING PIECE) ---
+  // --- CELEBRATION LOGIC ---
   const triggerCelebration = () => {
     const end = Date.now() + (4 * 1000); // 4 seconds of confetti
     const colors = ['#FF69B4', '#FFB6C1', '#FFFFFF'];
@@ -29,7 +31,7 @@ const App = () => {
         spread: 55,
         origin: { x: 0, y: 0.7 },
         colors: colors,
-        zIndex: 9999 // Ensures it shows over the white boxes
+        zIndex: 9999 
       });
       confetti({
         particleCount: 2,
@@ -95,12 +97,35 @@ const App = () => {
     } else { setPasswordInput(''); }
   };
 
+  // --- 1. COURT SUMMONS SCREEN ---
+  if (showSummons) {
+    return (
+      <div className="h-screen bg-[#f3e5ab] flex items-center justify-center p-6 font-serif overflow-y-auto">
+        <div className="max-w-md w-full bg-white p-8 shadow-2xl border-t-[20px] border-pink-500 relative">
+          <div className="absolute top-4 right-4 opacity-20 text-6xl rotate-12">⚖️</div>
+          <h2 className="text-center font-bold text-gray-800 underline mb-6">COURT SUMMONS</h2>
+          <div className="text-xs space-y-4 text-gray-700 uppercase tracking-tighter">
+            <p><strong>Case:</strong> ARITRA_SANTANA_2023</p>
+            <p><strong>To:</strong> Advocate Santana</p>
+            <p className="normal-case italic border-l-4 border-pink-200 pl-4 py-2">
+              "You are hereby commanded to review the digital evidence of the last 3 years and provide your testimony."
+            </p>
+            <button onClick={() => setShowSummons(false)} className="w-full mt-8 bg-pink-500 text-white py-3 font-bold hover:bg-pink-600 transition-colors shadow-lg">
+              RESPOND TO SUMMONS
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // --- 2. LOCK SCREEN ---
   if (isLocked) {
     return (
       <div className="h-screen flex items-center justify-center bg-[#FFF0F5] font-serif p-4">
         <div className="bg-white p-10 rounded-[40px] shadow-2xl text-center max-w-sm w-full border-4 border-pink-100">
           <div className="text-5xl mb-6 animate-bounce text-pink-500">🌸</div>
-          <h2 className="text-2xl font-bold mb-6 text-pink-500 italic">Memories of Us</h2>
+          <h2 className="text-2xl font-bold mb-6 text-pink-500 italic">Evidence Vault</h2>
           <form onSubmit={handleUnlock} className="space-y-6">
             <input type="password" value={passwordInput} onChange={(e) => setPasswordInput(e.target.value)}
               placeholder="Enter Our Date (DDMM)" className="w-full text-center border-b-2 border-pink-200 focus:border-pink-500 outline-none text-2xl pb-2 text-pink-400 bg-transparent" />
@@ -166,6 +191,47 @@ const App = () => {
         ))}
       </section>
 
+      {/* --- 3. ROSE DAY SPECIAL SECTION --- */}
+      <section className="max-w-4xl mx-auto px-6 py-20 text-center">
+        <div className="bg-white/50 backdrop-blur-sm p-10 rounded-[50px] border-2 border-pink-100 shadow-xl relative overflow-hidden">
+          <h3 className="text-2xl font-bold text-pink-600 mb-8 uppercase tracking-widest italic">🌹 Rose Day Special 🌹</h3>
+          {!isRoseRevealed ? (
+            <button onClick={() => setIsRoseRevealed(true)} className="group relative transition-transform hover:scale-110 active:scale-95">
+              <div className="text-8xl animate-pulse">💐</div>
+              <p className="mt-4 text-pink-400 font-bold animate-bounce text-sm uppercase tracking-tighter">Tap to pick a rose for yourself</p>
+            </button>
+          ) : (
+            <div className="animate-fade-in flex flex-col items-center">
+              <div className="text-9xl mb-6 drop-shadow-lg">🌹</div>
+              <div className="max-w-md space-y-6">
+                <p className="text-2xl font-serif text-pink-600 italic leading-relaxed">
+                  "Happy Rose Day, jaan 🌹
+
+                      Ei rose ta just ekta phool na… eta proof je amar girlfriend officially full “golap level beautiful” 😌. Seriously bolchi — tumi amar life-e eshe puro vibe change kore diyecho. Age life chilo normal, ekhon full HD colorful version, shudhu tomar jonno.
+
+                      Tomar smile ta deklei amar mood auto refresh hoy — literally no WiFi needed 😄. Aar haan, jodi konodin amader jhogra hoy (which obviously tomar fault hobe… kidding 😂), tokhon o ami tomakei choose korbo, karon amar favourite problem tao tumi.
+
+                      Tumi amar shanti, amar paglamo, amar best friend, aar amar daily happiness dose. Tai ei Rose Day-te ekta promise — jotoi thorns asuk life-e, ami tomar sathei thakbo… aar tomake irritate o korbo lifetime free service 😜❤️
+
+                      Love you always, amar shona golap 🌹
+"
+                </p>
+                <div className="p-6 bg-pink-50 rounded-2xl border-l-4 border-pink-400 text-left">
+                  <p className="text-gray-700 italic text-lg font-serif">
+                    "You’re the rose of my life — delicate, beautiful, and irreplaceable.
+                  </p>
+                </div>
+                <p className="text-xs text-pink-400 font-bold uppercase tracking-widest">
+                  Status: Rose successfully delivered with 100% encryption. <br/>
+                  Valid in all courts of love.
+                </p>
+                <button onClick={() => setIsRoseRevealed(false)} className="text-pink-300 hover:text-pink-500 text-xs underline mt-4">Put it back in the bouquet</button>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Scroll Letter Section */}
       <section className="max-w-4xl mx-auto px-6 py-20 text-center">
         {!isScrollOpen ? (
@@ -216,6 +282,7 @@ const App = () => {
             <div className="animate-fade-in py-10">
               <h2 className="text-5xl text-pink-600 font-bold mb-6">Yay! ❤️</h2>
               <p className="text-2xl text-pink-500 italic">You made the right choice! I love you so much.<br/>Forever yours — Babai</p>
+              {/* Profession emojis: Man Dev and Woman Lawyer */}
               <div className="text-6xl mt-6">👨‍💻❤️👩‍⚖️</div>
             </div>
           )}
