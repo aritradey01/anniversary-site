@@ -1,1 +1,64 @@
 @import "tailwindcss";
+
+
+
+/* --- GLOBAL RESET & STRETCH PREVENTION --- */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden; 
+  background-color: #FFF0F5; /* Matches your theme */
+  font-family: 'Georgia', serif; /* Romantic/Legal theme */
+}
+
+/* --- 3D FLIP ANIMATIONS --- */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.backface-hidden {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* --- UI ENHANCEMENTS --- */
+.transition-transform {
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Custom shadow for the Vault cards to add depth */
+.vault-shadow {
+  box-shadow: 0 25px 50px -12px rgba(244, 114, 182, 0.3);
+}
