@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-
-
 /* --- GLOBAL RESET & STRETCH PREVENTION --- */
 * {
   box-sizing: border-box;
@@ -31,8 +29,8 @@ html, body {
 }
 
 .backface-hidden {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   position: absolute; 
   top: 0;
   left: 0;
@@ -56,9 +54,4 @@ html, body {
 
 .animate-fade-in {
   animation: fadeIn 0.8s ease-out forwards;
-}
-
-/* Custom shadow for the Vault cards to add depth */
-.vault-shadow {
-  box-shadow: 0 25px 50px -12px rgba(244, 114, 182, 0.3);
 }

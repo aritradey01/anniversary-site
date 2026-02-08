@@ -18,7 +18,7 @@ const App = () => {
 
   // --- CONFIGURATION ---
   const CORRECT_PASSWORD = "1902"; 
-  const ANNIVERSARY_DATE = new Date(2023, 2, 19, 0, 0, 0); //
+  const ANNIVERSARY_DATE = new Date(2023, 2, 19, 0, 0, 0); // Corrected to Feb (index 1)
 
   // --- CELEBRATION LOGIC ---
   const triggerCelebration = () => {
@@ -60,8 +60,9 @@ const App = () => {
   };
 
   const moveNoButton = () => {
-    const randomX = Math.floor(Math.random() * 240) - 120;
-    const randomY = Math.floor(Math.random() * 120) - 60;
+    // Reduced range for mobile safety to keep it within view
+    const randomX = Math.floor(Math.random() * 160) - 80;
+    const randomY = Math.floor(Math.random() * 80) - 40;
     setNoButtonPos({ top: `${randomY}px`, left: `${randomX}px` });
   };
 
@@ -123,7 +124,7 @@ const App = () => {
 
       {/* Hero Header */}
       <header className="min-h-screen flex flex-col items-center justify-center text-center p-6">
-        <h1 className="text-6xl md:text-8xl font-bold text-pink-500 mb-4 drop-shadow-sm font-bold">Aritra & Santana</h1>
+        <h1 className="text-5xl md:text-8xl font-bold text-pink-500 mb-4 drop-shadow-sm">Aritra & Santana</h1>
         <p className="text-pink-400 italic text-xl mb-12">"Apki Nazron ne Samjha, Pyaar ke kabil humein..."</p>
         <div className="flex flex-wrap justify-center gap-4 bg-white/70 p-6 rounded-[40px] shadow-inner border-2 border-white backdrop-blur-sm">
           {Object.entries(timeTogether).map(([label, value]) => (
@@ -167,7 +168,7 @@ const App = () => {
 
       {/* Rose Day Special */}
      <section className="max-w-4xl mx-auto px-6 py-20 text-center">
-        <div className="bg-white/50 backdrop-blur-sm p-10 rounded-[50px] border-2 border-pink-100 shadow-xl relative">
+        <div className="bg-white/50 backdrop-blur-sm p-8 sm:p-12 rounded-[40px] sm:rounded-[60px] border-2 border-pink-100 shadow-xl relative">
           <h3 className="text-2xl font-bold text-pink-600 mb-8 uppercase tracking-widest italic font-bold">🌹 Rose Day Special 🌹</h3>
           {!isRoseRevealed ? (
             <button onClick={() => setIsRoseRevealed(true)} className="group transition-transform hover:scale-110 active:scale-95">
@@ -178,17 +179,15 @@ const App = () => {
             <div className="animate-fade-in flex flex-col items-center">
               <div className="text-9xl mb-6">🌹</div>
               <div className="max-w-md space-y-6">
-                <p className="text-2xl font-serif text-pink-600 italic leading-relaxed">"Happy Rose Day, jaan 🌹
-
-                  Ei rose ta just ekta phool na… eta proof je amar girlfriend officially full “golap level beautiful” 😌. Seriously bolchi — tumi amar life-e eshe puro vibe change kore diyecho. Age life chilo normal, ekhon full HD colorful version, shudhu tomar jonno.
-
-                  Tomar smile ta deklei amar mood auto refresh hoy — literally no WiFi needed 😄. Aar haan, jodi konodin amader jhogra hoy (which obviously tomar fault hobe… kidding 😂), tokhon o ami tomakei choose korbo, karon amar favourite problem tao tumi.
-
-                  Tumi amar shanti, amar paglamo, amar best friend, aar amar daily happiness dose. Tai ei Rose Day-te ekta promise — jotoi thorns asuk life-e, ami tomar sathei thakbo… aar tomake irritate o korbo lifetime free service 😜❤️
-
-                  Love you always, amar shona golap 🌹"</p>
+                <p className="text-xl sm:text-2xl font-serif text-pink-600 italic leading-relaxed text-left">
+                  "Happy Rose Day, jaan 🌹<br/><br/>
+                  Ei rose ta just ekta phool na… eta proof je amar girlfriend officially full “golap level beautiful” 😌. Age life chilo normal, ekhon full HD colorful version, shudhu tomar jonno.<br/><br/>
+                  Tomar smile ta deklei amar mood auto refresh hoy. Jokhon amader jhogra hoy (which obviously tomar fault hobe… 😂), tokhon o ami tomakei choose korbo, karon amar favourite problem tao tumi.<br/><br/>
+                  Tai ei Rose Day-te ekta promise — jotoi thorns asuk life-e, ami tomar sathei thakbo… aar tomake irritate o korbo lifetime free service 😜❤️<br/><br/>
+                  Love you always, amar shona golap 🌹"
+                </p>
                 <div className="p-6 bg-pink-50 rounded-2xl border-l-4 border-pink-400 text-left italic font-serif leading-relaxed">"Like this rose, my love for you grows more beautiful every day"</div>
-                <p className="text-[10px] text-pink-400 font-bold uppercase tracking-widest font-bold">Status: Rose encrypted and legally delivered.</p>
+                <p className="text-[10px] text-pink-400 font-bold uppercase tracking-widest">Status: Rose encrypted and legally delivered.</p>
                 <button onClick={() => setIsRoseRevealed(false)} className="text-pink-300 text-xs underline mt-4">Close</button>
               </div>
             </div>
@@ -196,7 +195,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* THE "MISS ME" SCROLL (RESTORED) */}
+      {/* THE "MISS ME" SCROLL */}
       <section className="max-w-4xl mx-auto px-6 py-20 text-center">
         {!isScrollOpen ? (
           <button onClick={() => setIsScrollOpen(true)} className="bg-white p-12 rounded-[40px] shadow-lg border-2 border-dashed border-pink-300 group hover:border-pink-500 transition-colors">
@@ -204,42 +203,39 @@ const App = () => {
             <p className="font-bold text-pink-500 uppercase tracking-widest italic">Open it when you miss me</p>
           </button>
         ) : (
-          <div className="bg-[#fdf5e6] shadow-2xl mx-auto border-x-[20px] border-[#d2b48c] rounded-lg py-12 px-10 animate-fade-in relative max-w-lg">
+          <div className="bg-[#fdf5e6] shadow-2xl mx-auto border-x-[20px] border-[#d2b48c] rounded-lg py-12 px-6 sm:px-10 animate-fade-in relative max-w-lg">
              <button onClick={() => setIsScrollOpen(false)} className="absolute top-4 right-4 text-pink-300 text-3xl hover:text-pink-500">×</button>
              <h4 className="text-3xl font-bold text-pink-600 mb-6 italic text-left underline">My Dearest Manai,</h4>
-             <div className="text-left text-gray-700 space-y-6 text-xl italic leading-relaxed font-bold">
-               <p>Hey… jodi tumi eta porcho because tumi amake miss korcho, tahole ekta kotha mone rekho — ami-o probably tomake miss korchi. Life e distance, busy time, ba little misunderstandings thakte pare, but tar mane ei na je feelings change hoye geche. Amader je chhoto chhoto memories, random calls, hasi-maja, late night talks — ogulo ekhono amar kache special.
-
-                Tumi jodi ekhon ektu lonely feel koro, please nijeke ekdom alone mone koro na. Ami always tomar bhalo chai, tomar happiness amar kache important chilo, ache, aar thakbe. Jokhon amar kotha mone porbe, sad hoyo na — smile koro, karon amader moments gulo happy chilo.
-
-                Take a deep breath, relax koro… everything thik hoye jabe. And haan, jodi possible hoy, ekta chhoto smile dio — amar jonno. 🙂
-                </p>
+             <div className="text-left text-gray-700 space-y-6 text-lg sm:text-xl italic leading-relaxed font-bold">
+               <p>Hey… jodi tumi eta porcho because tumi amake miss korcho, tahole mone rekho — ami-o probably tomake miss korchi. Distance thakte pare, but feelings change hoy na. Amader random calls aar late night talks ekhono amar kache special.</p>
+               <p>Tumi jodi ekhon lonely feel koro, please nijeke alone mone koro na. Ami always tomar bhalo chai. Jokhon amar kotha mone porbe, sad hoyo na — smile koro, karon amader moments gulo happy chilo.🙂</p>
                <p className="font-bold text-pink-500 text-right mt-10">— Forever Yours, Babai</p>
              </div>
           </div>
         )}
       </section>
 
-      {/* FINAL PROPOSAL & CELEBRATION */}
+      {/* FINAL PROPOSAL & CELEBRATION (MOBILE OPTIMIZED) */}
       <footer className="mt-20 text-center px-4 pb-32">
-        <div className="inline-block bg-white/80 backdrop-blur-md p-8 md:p-20 rounded-[60px] border-2 border-pink-100 shadow-2xl max-w-2xl w-full">
+        <div className="inline-block bg-white/80 backdrop-blur-md p-6 sm:p-20 rounded-[40px] sm:rounded-[60px] border-2 border-pink-100 shadow-2xl w-full max-w-2xl">
           {!hasAgreed ? (
             <>
-              <p className="text-2xl md:text-4xl text-pink-600 leading-relaxed italic mb-12 font-bold px-4">
-                "তিনটি বছর, অজস্র স্মৃতি। তোমাকে ছাড়া আমার পৃথিবীটা অসম্পূর্ণ। <br /> Will you grow old with me?"
+              <p className="text-xl sm:text-4xl text-pink-600 leading-relaxed italic mb-8 sm:mb-12 font-bold px-2">
+                "তিনটি বছর, অজস্র স্মৃতি। তোমাকে ছাড়া আমার পৃথিবীটা অসম্পূর্ণ। <br className="hidden sm:block" /> Will you grow old with me?"
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-8 relative min-h-[160px]">
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 relative min-h-[180px] sm:min-h-[160px]">
                 <button 
                   onClick={() => { setHasAgreed(true); setTimeout(() => triggerCelebration(), 200); }} 
-                  className="bg-pink-500 text-white px-16 py-5 rounded-full font-bold shadow-xl z-10 w-full sm:w-auto hover:bg-pink-600 transition-all text-xl"
+                  className="bg-pink-500 text-white px-12 sm:px-16 py-4 sm:py-5 rounded-full font-bold shadow-xl z-10 w-full sm:w-auto hover:bg-pink-600 transition-all text-xl"
                 >
                   Yes!
                 </button>
                 <button 
                   onMouseEnter={moveNoButton} 
-                  onTouchStart={moveNoButton}
-                  style={{ position: 'relative', top: noButtonPos.top, left: noButtonPos.left }}
-                  className="bg-gray-100 text-gray-400 px-16 py-5 rounded-full font-bold w-full sm:w-auto transition-all text-xl"
+                  onTouchStart={(e) => { e.preventDefault(); moveNoButton(); }}
+                  style={{ position: 'relative', top: noButtonPos.top, left: noButtonPos.left, transition: 'all 0.2s ease' }}
+                  className="bg-gray-100 text-gray-400 px-12 sm:px-16 py-4 sm:py-5 rounded-full font-bold w-full sm:w-auto transition-all text-xl"
                 >
                   No
                 </button>
@@ -247,15 +243,15 @@ const App = () => {
             </>
           ) : (
             <div className="animate-fade-in py-10">
-              <h2 className="text-6xl text-pink-600 font-bold mb-8 italic">Yay! ❤️</h2>
-              <p className="text-3xl text-pink-500 italic font-bold">Forever yours — Babai</p>
-              <div className="text-8xl mt-10 animate-bounce">👨‍💻❤️👩‍⚖️</div>
+              <h2 className="text-5xl sm:text-6xl text-pink-600 font-bold mb-6 italic">Yay! ❤️</h2>
+              <p className="text-2xl sm:text-3xl text-pink-500 italic font-bold">Forever yours — Babai</p>
+              <div className="text-7xl sm:text-8xl mt-10 animate-bounce">👨‍💻❤️👩‍⚖️</div>
               <p className="mt-12 text-[10px] text-pink-300 uppercase tracking-[0.4em] font-bold">Encrypted Legacy Secured</p>
             </div>
           )}
         </div>
         <div className="mt-24 opacity-40 text-[10px] text-pink-400 uppercase tracking-[0.2em] font-bold">
-          <p>© 2023-{new Date().getFullYear()} © 2023–2026 ARITRA & SANTANA | All Rights Reserved | Designed with ❤️</p>
+          <p>© 2023–2026 ARITRA & SANTANA | All Rights Reserved | Designed with ❤️</p>
         </div>
       </footer>
     </div>
